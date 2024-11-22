@@ -1,25 +1,27 @@
-import { useState } from 'react'
-import { Upload, File } from 'lucide-react'
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+'use client';
+
+import { useState } from 'react';
+import { Upload, File } from 'lucide-react';
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 interface FileUploadProps {
-  label: string
-  acceptedFileTypes: string
-  onFileSelect: (file: File) => void
+  label: string;
+  acceptedFileTypes: string;
+  onFileSelect: (file: File) => void;
 }
 
 export function FileUpload({ label, acceptedFileTypes, onFileSelect }: FileUploadProps) {
-  const [fileName, setFileName] = useState<string | null>(null)
+  const [fileName, setFileName] = useState<string | null>(null);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0]
+    const file = event.target.files?.[0];
     if (file) {
-      setFileName(file.name)
-      onFileSelect(file)
+      setFileName(file.name);
+      onFileSelect(file);
     }
-  }
+  };
 
   return (
     <div className="space-y-2">
@@ -37,18 +39,17 @@ export function FileUpload({ label, acceptedFileTypes, onFileSelect }: FileUploa
         <Button
           onClick={() => document.getElementById(`file-upload-${label}`)?.click()}
           variant="outline"
-          className="w-full justify-start text-left font-normal border-gray-300 text-gray-700 hover:bg-blue-50 hover:border-blue-300 hover:text-blue-700"
+          className="w-full justify-start text-left font-normal hover:bg-blue-50"
         >
           <Upload className="mr-2 h-4 w-4" />
           {fileName || `Choose ${label} file`}
         </Button>
         {fileName && (
-          <Button variant="ghost" size="icon" className="text-blue-600 hover:text-blue-800 hover:bg-blue-50">
+          <Button variant="ghost" size="icon" className="text-blue-600 hover:text-blue-800">
             <File className="h-4 w-4" />
           </Button>
         )}
       </div>
     </div>
-  )
+  );
 }
-
