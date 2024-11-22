@@ -9,7 +9,6 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 export default function Home() {
   const [essayFile, setEssayFile] = useState<File | null>(null)
   const [webinarFile, setWebinarFile] = useState<File | null>(null)
-
   const handleSubmit = () => {
     // Handle submission logic here
     console.log('Submitting files:', { essayFile, webinarFile })
