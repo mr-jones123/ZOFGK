@@ -1,18 +1,18 @@
-import Link from 'next/link'
-import { Button } from "@/components/ui/button"
+import { AuthButton } from './auth-button';
 
 export function Navbar() {
   return (
-    <nav className="bg-gradient-to-r from-blue-600 via-blue-500 to-green-500 p-4">
-      <div className="container mx-auto flex justify-between items-center">
-        <Link href="/" className="text-white text-2xl font-bold">EduGrade</Link>
-        <div className="space-x-2">
-          <Button variant="ghost" className="text-white hover:bg-white/20">Dashboard</Button>
-          <Button variant="ghost" className="text-white hover:bg-white/20">Uploads</Button>
-          <Button variant="ghost" className="text-white hover:bg-white/20">Profile</Button>
+    <nav className="bg-white shadow-sm border-b">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between h-16 items-center">
+          <div className="flex-shrink-0">
+            <h1 className="text-xl font-bold text-blue-600">Essay Grading System</h1>
+          </div>
+          <div>
+            <AuthButton />
+          </div>
         </div>
       </div>
     </nav>
-  )
+  );
 }
-
