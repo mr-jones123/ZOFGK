@@ -1,54 +1,43 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { Navbar } from '@/components/navbar'
-import { FileUpload } from '@/components/file-upload'
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { useScroll, useTransform } from "framer-motion";
+import React from "react";
+import { GoogleGeminiEffect } from "../components/ui/google-gemini-effect";
 
-export default function Home() {
-  const [essayFile, setEssayFile] = useState<File | null>(null)
-  const [webinarFile, setWebinarFile] = useState<File | null>(null)
+export default function GoogleGeminiEffectDemo() {
+  const ref = React.useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  });
 
-  const handleSubmit = () => {
-    // Handle submission logic here
-    console.log('Submitting files:', { essayFile, webinarFile })
-  }
+  const pathLengthFirst = useTransform(scrollYProgress, [0, 0.8], [0.2, 1.2]);
+  const pathLengthSecond = useTransform(scrollYProgress, [0, 0.8], [0.15, 1.2]);
+  const pathLengthThird = useTransform(scrollYProgress, [0, 0.8], [0.1, 1.2]);
+  const pathLengthFourth = useTransform(scrollYProgress, [0, 0.8], [0.05, 1.2]);
+  const pathLengthFifth = useTransform(scrollYProgress, [0, 0.8], [0, 1.2]);
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Navbar />
-      <main className="container mx-auto py-8">
-        <Card className="w-full max-w-2xl mx-auto bg-white shadow-md">
-          <CardHeader className="border-b border-gray-200">
-            <CardTitle className="text-2xl font-semibold text-center text-blue-600">Upload Your Content</CardTitle>
-            <CardDescription className="text-center text-gray-600">
-              Upload your essay and webinar content for grading
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-6 pt-6">
-            <FileUpload
-              label="Upload Essay"
-              acceptedFileTypes=".pdf,.doc,.docx"
-              onFileSelect={(file) => setEssayFile(file)}
-            />
-            <FileUpload
-              label="Upload Webinar Content"
-              acceptedFileTypes=".pdf,.doc,.docx,.ppt,.pptx"
-              onFileSelect={(file) => setWebinarFile(file)}
-            />
-          </CardContent>
-          <CardFooter className="border-t border-gray-200 pt-6">
-            <Button 
-              onClick={handleSubmit} 
-              className="w-full bg-gradient-to-r from-blue-600 to-green-500 text-white hover:from-blue-700 hover:to-green-600 transition-all duration-300"
-            >
-              Submit for Grading
-            </Button>
-          </CardFooter>
-        </Card>
-      </main>
+    <div
+      className="min-h-screen bg-black w-full dark:border dark:border-white/[0.1] rounded-md relative overflow-hidden"
+      ref={ref}
+    >
+      <div className="sticky top-0 h-screen flex items-center justify-center">
+        <GoogleGeminiEffect
+          pathLengths={[
+            pathLengthFirst,
+            pathLengthSecond,
+            pathLengthThird,
+            pathLengthFourth,
+            pathLengthFifth,
+          ]}
+          className="w-full h-full max-w-4xl max-h-[80vh] mx-auto"
+        />
+      </div>
+      <div className="h-[300vh]" aria-hidden="true">
+        {/* This div creates scrollable space */}
+      </div>
     </div>
-  )
+  );
 }
 
